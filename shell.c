@@ -10,7 +10,7 @@
 #define MAX_HISTORY 10
 
 bool should_exit = false;
-bool run_concurrently = true;
+bool run_concurrently = false;
 int history_pointer = 0;
 int history_argc[MAX_HISTORY];
 
@@ -33,7 +33,6 @@ int main(void) {
             argv = tokenizer_for_argv(input, &argc);
             // save_command(&argc, argv, history_argv);
             if (check_for_history_call(&argc, &argv, history_argv)) {
-                // printf(argv[0]);
                 execute(&argc, argv);
             }
             // reset command
@@ -61,7 +60,7 @@ void execute(int* argc, char** argv) {
     } else {
         if (run_concurrently) {
             wait(NULL);
-            // run_concurrently = false;
+            run_concurrently = false;
         }
     }
 }
